@@ -51,16 +51,18 @@
 
 <div class="output" id="outputText"></div>
 
+<!-- 添加一个“复制结果”按钮 -->
+<button onclick="copyResult()">复制结果</button>
+
 <script>
+// 加粗前三个字母的函数
 function boldFirstThree() {
     const input = document.getElementById('inputText').value;
     const words = input.split(/\s+/);
     const newWords = words.map(word => {
         if (word.length < 3) {
-            // 如果单词长度小于3个字母，直接返回不加粗
             return word;
         } else {
-            // 检查末尾是否有标点符号
             const match = word.match(/^([a-zA-Z]+)([^a-zA-Z]*)$/);
             if (match) {
                 const main = match[1];
@@ -72,6 +74,19 @@ function boldFirstThree() {
         }
     });
     document.getElementById('outputText').innerHTML = newWords.join(' ');
+}
+
+// 复制结果的函数
+function copyResult() {
+    const outputText = document.getElementById('outputText').innerText;
+    const textarea = document.createElement('textarea');
+    textarea.value = outputText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    alert('已复制结果到剪贴板！');  // 提示用户已复制
 }
 </script>
 
